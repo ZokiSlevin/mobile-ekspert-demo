@@ -286,3 +286,61 @@ body{font-family:Inter,"Segoe UI",Arial,sans-serif;letter-spacing:-.008em;-webki
 .scain-form-note[hidden]{display:none}
 @media(max-width:980px){.forensics-intent-grid,.scain-audiences-grid{grid-template-columns:1fr 1fr}.audatex-official-layout,.news-feature-layout,.news-links-section{grid-template-columns:1fr}.news-links-actions,.audatex-official-actions{flex-direction:row;flex-wrap:wrap}}
 @media(max-width:650px){.forensics-intent-grid,.scain-audiences-grid{grid-template-columns:1fr}.forensics-intent-actions,.news-feature-story .button-row,.news-links-actions,.audatex-official-actions{align-items:stretch;flex-direction:column}.forensics-intent-actions .button,.news-feature-story .button-row .button,.news-links-actions .button,.audatex-official-actions .button{justify-content:center}}
+
+/* Mobile Ekspert - shrinking, translucent sticky navigation (2026-11-05).
+   The existing js/main.js already toggles .site-header.scrolled on scroll. */
+.site-header {
+  -webkit-backdrop-filter: blur(14px) saturate(135%);
+  backdrop-filter: blur(14px) saturate(135%);
+  transition: background-color .3s ease, border-color .3s ease, box-shadow .3s ease;
+}
+.site-header .header-inner {
+  transition: height .32s cubic-bezier(.22, 1, .36, 1);
+}
+.site-header .brand img {
+  transition: width .32s cubic-bezier(.22, 1, .36, 1);
+}
+.site-header .main-nav .nav-cta {
+  transition: min-height .3s ease, padding .3s ease, background-color .3s ease,
+    box-shadow .3s ease, transform .2s ease;
+}
+.site-header.scrolled {
+  background-color: rgba(249, 252, 255, .73);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  backdrop-filter: blur(20px) saturate(160%);
+  border-bottom-color: rgba(206, 225, 237, .65);
+  box-shadow: 0 9px 30px rgba(4, 32, 58, .095);
+}
+.site-header.scrolled .header-inner { height: 64px; }
+.site-header.scrolled .brand img { width: 169px; }
+@media (min-width: 981px) {
+  .site-header.scrolled .main-nav .nav-cta {
+    min-height: 36px;
+    padding-inline: 16px;
+  }
+}
+@media (min-width: 681px) and (max-width: 1150px) {
+  .site-header.scrolled .brand img { width: 158px; }
+}
+@media (max-width: 980px) {
+  .site-header.scrolled .header-inner { height: 62px; }
+  .site-header.scrolled .brand img { width: 162px; }
+  .site-header.scrolled .main-nav {
+    top: 62px;
+    max-height: calc(100vh - 62px);
+    max-height: calc(100dvh - 62px);
+  }
+}
+@media (max-width: 680px) {
+  .site-header.scrolled .header-inner { height: 58px; }
+  .site-header.scrolled .brand img { width: 148px; }
+  .site-header.scrolled .main-nav {
+    top: 58px;
+    max-height: calc(100vh - 58px);
+    max-height: calc(100dvh - 58px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-header, .site-header .header-inner, .site-header .brand img,
+  .site-header .main-nav .nav-cta { transition: none !important; }
+}
