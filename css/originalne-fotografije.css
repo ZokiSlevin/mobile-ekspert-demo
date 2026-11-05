@@ -1,0 +1,80 @@
+/* Mobile Ekspert - native imagery from published website.\n   NOTE: files linked under /wp-content/ must be physically preserved or copied\n   before replacing the live WordPress installation. */
+:root{--original-contact: url('https://mobile-ekspert.net/wp-content/uploads/2024/11/kontakt_header.jpg')}
+.hero-home.hero-original{
+  background:#eff7fb;
+  padding-top:86px;
+  min-height:680px;
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+}
+.hero-home.hero-original .hero-visual{
+  position:absolute;inset:0;z-index:0;
+  background-image: linear-gradient(90deg,rgba(245,251,254,.99) 0%,rgba(245,251,254,.93) 35%,rgba(244,250,254,.46) 64%,rgba(241,248,252,.08) 100%),
+   url('https://mobile-ekspert.net/wp-content/uploads/2024/11/kontakt_header.jpg');
+  background-size:cover;
+  background-position: center center;
+}
+.hero-home.hero-original .hero-visual:before{display:none}
+.hero-home.hero-original .hero-layout{position:relative;z-index:1;display:grid;grid-template-columns: minmax(0,1.03fr) minmax(0,.97fr);gap:28px;align-items:center;}
+.hero-home.hero-original .hero-content{padding:108px 0 120px;max-width:700px}
+.hero-home.hero-original .hero-eyebrow{color:#17648a}
+.hero-home.hero-original .signal-dot{background:#00aace;box-shadow:0 0 0 5px rgba(10,153,186,.14)}
+.hero-home.hero-original h1{color:#082d46;font-size:clamp(54px,6vw,85px);text-shadow:0 2px 24px rgba(255,255,255,.32)}
+.hero-home.hero-original h1 em{color:#087eb3}
+.hero-home.hero-original .lead{color:#3f5c70;max-width:550px}
+.hero-home.hero-original .hero-proof{color:#325b70}
+.hero-home.hero-original .proof-line{background:#18a6cb}
+.hero-home.hero-original .button-row .button:not(.button-secondary){background:#0874b3;color:#fff;box-shadow:0 12px 26px rgba(7,96,159,.2)}
+.hero-home.hero-original .button-row .button:not(.button-secondary):hover{background:#065a91}
+.hero-home.hero-original .button-secondary{color:#0b4360!important;border:1px solid rgba(14,98,140,.38);background:rgba(255,255,255,.55)!important}
+.hero-home.hero-original .button-secondary:hover{background:#e8f6fc!important}
+.hero-photo-caption{justify-self:end;align-self:end;margin:0 8px 109px 0;display:flex;flex-direction:column;gap:5px;max-width:270px;padding:18px 21px;border-radius:14px;background:rgba(248,253,255,.87);border:1px solid rgba(255,255,255,.86);box-shadow:0 18px 48px rgba(12,46,67,.12);backdrop-filter:blur(12px);color:#133c54}
+.hero-caption-overline{font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:800;color:#0874ac}
+.hero-photo-caption strong{font-size:15px;line-height:1.42}
+.hero-home.hero-original + .strengths{background:transparent}
+.feature-panel.feature-panel-authentic{background:
+  linear-gradient(90deg,rgba(5,24,39,.96) 0%,rgba(5,31,50,.82) 48%,rgba(5,31,50,.46) 100%),
+  url('https://mobile-ekspert.net/wp-content/themes/real/public/img/tvrtka.jpg') center center / cover no-repeat;
+  min-height:445px;
+}
+.page-hero.page-hero-original{position:relative;isolation:isolate;background-color:#edf7fc;color:#102e42;min-height:380px}
+.page-hero.page-hero-original:before{content:"";position:absolute;inset:0;z-index:-1;background-position:center center;background-size:cover;background-repeat:no-repeat}
+.page-hero.page-hero-original.page-hero-services:before{background-image:linear-gradient(90deg,rgba(250,253,255,.96),rgba(250,253,255,.54) 68%,rgba(250,253,255,.08)),url('https://mobile-ekspert.net/wp-content/uploads/2024/11/usluge_header.jpg')}
+.page-hero.page-hero-original.page-hero-company:before{background-image:linear-gradient(90deg,rgba(250,253,255,.96),rgba(250,253,255,.59) 67%,rgba(250,253,255,.08)),url('https://mobile-ekspert.net/wp-content/uploads/2024/11/tvrtka_header.jpg')}
+.page-hero.page-hero-original.page-hero-contact:before{background-image:linear-gradient(90deg,rgba(250,253,255,.96),rgba(250,253,255,.58) 68%,rgba(250,253,255,.09)),url('https://mobile-ekspert.net/wp-content/uploads/2024/11/kontakt_header.jpg')}
+.page-hero.page-hero-original h1{color:#102f46;text-shadow:0 1px 18px rgba(255,255,255,.3)}
+.page-hero.page-hero-original p:not(.eyebrow){color:#35576d}
+.page-hero.page-hero-original .eyebrow{color:#13759e}
+.page-hero.page-hero-original .breadcrumbs{color:#416275}
+.page-hero.page-hero-original .breadcrumbs a{color:#20607c}
+.about-actual-photo{position:relative;overflow:hidden;align-self:stretch;min-height:360px;margin:0;border-radius:20px;background:#dceaf1;box-shadow:0 18px 50px rgba(9,46,70,.12)}
+.about-actual-photo img{display:block;width:100%;height:100%;min-height:360px;object-fit:cover;object-position:center}
+.about-actual-photo figcaption{position:absolute;bottom:0;left:0;right:0;padding:45px 24px 21px;background:linear-gradient(transparent,rgba(1,20,32,.82));color:#fff;font-size:13px;font-weight:750}
+.original-service-mark{display:none;width:36px;height:36px;object-fit:contain}
+.service-icon.has-original-icon img.original-service-mark{display:block}
+.service-icon.has-original-icon svg.line-icon{display:none}
+@media(max-width:980px){
+ .hero-home.hero-original{min-height:620px;padding-top:82px}
+ .hero-home.hero-original .hero-content{padding:92px 0 105px;max-width:680px}
+ .hero-home.hero-original .hero-visual{background-position: 65% center}
+ .hero-photo-caption{display:none}
+ .hero-home.hero-original .hero-layout{grid-template-columns:1fr}
+}
+@media(max-width:680px){
+ .hero-home.hero-original{padding-top:72px;min-height:auto}
+ .hero-home.hero-original .hero-content{padding:84px 0 111px;max-width:100%}
+ .hero-home.hero-original .hero-visual{background-image:
+   linear-gradient(90deg,rgba(247,252,254,.97),rgba(247,252,254,.85) 65%,rgba(247,252,254,.72)),
+   url('https://mobile-ekspert.net/wp-content/uploads/2024/11/kontakt_header.jpg');background-position:68% center}
+ .hero-home.hero-original h1{font-size:clamp(41px,10vw,62px)}
+ .page-hero.page-hero-original{min-height:290px}
+ .page-hero.page-hero-original:before{background-position:64% center}
+ .about-actual-photo,.about-actual-photo img{min-height:285px}
+}
+@media(prefers-reduced-motion:reduce){.hero-home.hero-original .hero-visual{transition:none}}
+
+/* Branded fallback when legacy WordPress photo is not retained. */
+.about-actual-photo.photo-unavailable{background:radial-gradient(circle at 70% 35%,#145d80,#062940 80%)}
+.about-actual-photo.photo-unavailable:before{content:"";position:absolute;inset:20%;background:url("../images/logo/me.png") center center/contain no-repeat;filter:drop-shadow(0 5px 20px rgba(0,0,0,.14))}
+.about-actual-photo.photo-unavailable img{visibility:hidden}

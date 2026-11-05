@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /send-mail.php
+Sitemap: https://mobile-ekspert.net/sitemap.xml

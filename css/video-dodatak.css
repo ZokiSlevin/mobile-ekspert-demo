@@ -1,0 +1,77 @@
+
+/* Original Mobile Ekspert 6.67 s PORTRAIT loop, matched to the dark brand section. */
+.technology-showcase {
+  position:relative; isolation:isolate; display:flex; align-items:flex-end;
+  min-height:520px; overflow:hidden; border-radius:27px;
+  background: radial-gradient(circle at 86% 36%,#083555 0%,#041529 60%,#030e1d 100%);
+  border:1px solid rgba(120,204,237,.23);
+  box-shadow:0 30px 60px rgba(0,10,25,.25);
+  padding:clamp(26px,3vw,42px);
+}
+.technology-showcase:before {
+  content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:linear-gradient(90deg,rgba(3,16,31,.98) 1%,rgba(3,17,33,.88) 31%,rgba(3,18,34,.60) 54%,rgba(3,15,30,.04) 89%),
+    linear-gradient(0deg,rgba(4,18,32,.65),transparent 50%);
+}
+.technology-showcase:after {
+  content:""; position:absolute; inset:14px; z-index:2; pointer-events:none;
+  border-radius:17px; border:1px solid rgba(135,222,255,.14);
+}
+.technology-portrait-video {
+  position:absolute; inset:0 0 0 auto; display:block; width:64%; height:100%;
+  object-fit:cover; object-position:50% 50%; z-index:0;
+  filter:brightness(1.08) contrast(1.03);
+}
+.technology-showcase-content {
+  position:relative; z-index:3; width:min(74%,380px); padding-bottom:10px;
+}
+.technology-showcase-kicker {
+  color:#8bdeff; font-size:11px; font-weight:850; letter-spacing:.11em;
+  display:flex; align-items:center; gap:9px; text-transform:uppercase;
+}
+.technology-led {width:7px; height:7px; border-radius:50%; background:#19c4e6; box-shadow:0 0 0 4px rgba(25,196,230,.12)}
+.technology-showcase h3 {
+  color:#fff; font-weight:790; font-size:clamp(29px,3vw,38px);
+  letter-spacing:-.045em; line-height:1.12; margin:18px 0 14px;
+}
+.technology-showcase p {
+  max-width:295px; margin:0; line-height:1.6; font-size:15px; color:#d2e5f2;
+}
+.technology-showcase-link {
+  display:inline-flex; align-items:center; gap:12px; margin-top:25px;
+  color:#76dbff; font-weight:750; font-size:14px; text-decoration:none;
+  border-bottom:1px solid rgba(118,219,255,.35); padding-bottom:6px;
+}
+.technology-showcase-link:hover {color:white; border-color:white}
+.technology-showcase-link:focus-visible,
+.technology-motion-toggle:focus-visible {outline:3px solid #78e7ff; outline-offset:4px}
+.technology-motion-toggle {
+  position:absolute; bottom:20px; right:20px; z-index:4;
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  min-height:40px; padding:9px 12px; color:#d6f2ff;
+  background:rgba(6,22,39,.76); backdrop-filter:blur(8px);
+  border:1px solid rgba(157,221,245,.38); border-radius:30px;
+  cursor:pointer; font:700 12px/1.2 inherit;
+}
+.technology-motion-toggle:hover {background:#0c4764}
+.technology-motion-toggle svg {display:block; width:16px; height:16px}
+.technology-motion-toggle .technology-toggle-pause {display:none}
+.technology-motion-toggle.is-playing .technology-toggle-play {display:none}
+.technology-motion-toggle.is-playing .technology-toggle-pause {display:block}
+@media(max-width:1060px){
+  .technology-showcase {min-height:485px}
+  .technology-portrait-video {width:70%}
+  .technology-showcase h3 {font-size:clamp(28px,3.4vw,36px)}
+}
+@media(max-width:680px){
+  .technology-showcase {min-height:445px; padding:28px; border-radius:20px}
+  .technology-portrait-video {width:72%}
+  .technology-showcase-content {width:min(75%,310px);padding-bottom:24px}
+  .technology-showcase h3 {font-size:clamp(27px,8vw,35px)}
+  .technology-showcase p {font-size:14px}
+  .technology-showcase-link {font-size:13px}
+  .technology-motion-toggle {bottom:14px;right:13px;min-height:38px}
+}
+@media(prefers-reduced-motion:reduce){
+  .technology-showcase * {transition:none !important;animation:none !important}
+}
