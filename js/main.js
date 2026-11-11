@@ -2,6 +2,85 @@
 (() => {
   'use strict';
   document.documentElement.classList.add('js');
+  // Appearance: saved preference first, otherwise use the OS theme.
+  const root = document.documentElement;
+  const themeStorageKey = 'mobile-ekspert-theme';
+  const osDark = window.matchMedia('(prefers-color-scheme: dark)');
+  const readPreference = () => {
+    try { return localStorage.getItem(themeStorageKey); } catch (_) { return null; }
+  };
+  const savePreference = value => {
+    try { localStorage.setItem(themeStorageKey, value); } catch (_) { /* Private mode */ }
+  };
+  const preferredTheme = readPreference();
+  let currentTheme = preferredTheme === 'dark' || preferredTheme === 'light'
+    ? preferredTheme : (osDark.matches ? 'dark' : 'light');
+  const themeButton = document.createElement('button');
+  themeButton.type = 'button';
+  themeButton.id = 'themeToggle';
+  themeButton.className = 'theme-toggle';
+  // The displayed glyph indicates the mode that will be activated.
+  themeButton.innerHTML = '<svg class="theme-toggle__moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.1A8.7 8.7 0 0 1 10.9 3.4a8.8 8.8 0 1 0 9.7 9.7z"/></svg>' +
+    '<svg class="theme-toggle__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>';
+  const applyTheme = value => {
+    currentTheme = value;
+    root.setAttribute('data-theme', value);
+    const activateLight = value === 'dark';
+    const label = activateLight ? 'Uklju\u010di svijetli na\u010din rada' : 'Uklju\u010di tamni na\u010din rada';
+    themeButton.setAttribute('aria-label', label);
+    themeButton.setAttribute('title', label);
+    themeButton.setAttribute('aria-pressed', String(value === 'dark'));
+    const themeColor = document.querySelector('meta[name="theme-color"]');
+    if (themeColor) themeColor.setAttribute('content', value === 'dark' ? '#071725' : '#f9fcff');
+  };
+  applyTheme(currentTheme);
+  const headerInner = document.querySelector('#siteHeader .header-inner');
+  if (headerInner) {
+    const menuButton = document.getElementById('menuToggle');
+    headerInner.insertBefore(themeButton, menuButton || null);
+  }
+  themeButton.addEventListener('click', () => {
+    const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    applyTheme(nextTheme);
+    savePreference(nextTheme);
+  });
+  const followSystemTheme = event => {
+    if (readPreference() !== 'dark' && readPreference() !== 'light') applyTheme(event.matches ? 'dark' : 'light');
+  };
+  if (osDark.addEventListener) osDark.addEventListener('change', followSystemTheme);
+  else osDark.addListener(followSystemTheme);
+  window.addEventListener('storage', event => {
+    if (event.key === themeStorageKey) {
+      const theme = event.newValue === 'dark' || event.newValue === 'light'
+        ? event.newValue : (osDark.matches ? 'dark' : 'light');
+      applyTheme(theme);
+    }
+  });
+
+  // An accessible back-to-top control only after scrolling down.
+  const backToTop = document.createElement('button');
+  backToTop.type = 'button';
+  backToTop.id = 'backToTop';
+  backToTop.className = 'back-to-top';
+  backToTop.setAttribute('aria-label', 'Povratak na vrh stranice');
+  backToTop.setAttribute('title', 'Povratak na vrh stranice');
+  backToTop.setAttribute('aria-hidden', 'true');
+  backToTop.tabIndex = -1;
+  backToTop.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 7-7 7 7M12 5v14"/></svg>';
+  document.body.appendChild(backToTop);
+  const updateBackToTop = () => {
+    const show = window.scrollY > 350;
+    backToTop.classList.toggle('is-visible', show);
+    backToTop.setAttribute('aria-hidden', String(!show));
+    backToTop.tabIndex = show ? 0 : -1;
+  };
+  updateBackToTop();
+  window.addEventListener('scroll', updateBackToTop, {passive:true});
+  backToTop.addEventListener('click', () => window.scrollTo({
+    top: 0,
+    behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+  }));
+
   const header = document.getElementById('siteHeader');
   const menuToggle = document.getElementById('menuToggle');
   const nav = document.getElementById('mainNav');
@@ -43,7 +122,7 @@
   });
   document.addEventListener('click', event => {
     if (dropdown && !dropdown.contains(event.target)) closeDropdown();
-    if (mobile.matches && nav && menuToggle && !nav.contains(event.target) && !menuToggle.contains(event.target)) closeMenu();
+    if (mobile.matches && nav && menuToggle && !nav.contains(event.target) && !menuToggle.contains(event.target) && !themeButton.contains(event.target)) closeMenu();
   });
   const onViewportChange = () => closeMenu();
   if (mobile.addEventListener) mobile.addEventListener('change', onViewportChange);
