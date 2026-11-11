@@ -11,7 +11,7 @@
 .hero-home.hero-original .hero-visual{
   position:absolute;inset:0;z-index:0;
   background-image: linear-gradient(90deg,rgba(245,251,254,.99) 0%,rgba(245,251,254,.93) 35%,rgba(244,250,254,.46) 64%,rgba(241,248,252,.08) 100%),
-   url('https://mobile-ekspert.net/wp-content/uploads/2024/11/kontakt_header.jpg');
+   url('https://mobile-ekspert.net/wp-content/uploads/2024/11/kontakt_header.jpg'),url("../images/hero/hero-lines.svg");
   background-size:cover;
   background-position: center center;
 }
@@ -40,9 +40,9 @@
 }
 .page-hero.page-hero-original{position:relative;isolation:isolate;background-color:#edf7fc;color:#102e42;min-height:380px}
 .page-hero.page-hero-original:before{content:"";position:absolute;inset:0;z-index:-1;background-position:center center;background-size:cover;background-repeat:no-repeat}
-.page-hero.page-hero-original.page-hero-services:before{background-image:linear-gradient(90deg,rgba(250,253,255,.96),rgba(250,253,255,.54) 68%,rgba(250,253,255,.08)),url('https://mobile-ekspert.net/wp-content/uploads/2024/11/usluge_header.jpg')}
-.page-hero.page-hero-original.page-hero-company:before{background-image:linear-gradient(90deg,rgba(250,253,255,.96),rgba(250,253,255,.59) 67%,rgba(250,253,255,.08)),url('https://mobile-ekspert.net/wp-content/uploads/2024/11/tvrtka_header.jpg')}
-.page-hero.page-hero-original.page-hero-contact:before{background-image:linear-gradient(90deg,rgba(250,253,255,.96),rgba(250,253,255,.58) 68%,rgba(250,253,255,.09)),url('https://mobile-ekspert.net/wp-content/uploads/2024/11/kontakt_header.jpg')}
+.page-hero.page-hero-original.page-hero-services:before{background-image:linear-gradient(90deg,rgba(250,253,255,.96),rgba(250,253,255,.54) 68%,rgba(250,253,255,.08)),url('https://mobile-ekspert.net/wp-content/uploads/2024/11/usluge_header.jpg'),url("../images/hero/hero-lines.svg")}
+.page-hero.page-hero-original.page-hero-company:before{background-image:linear-gradient(90deg,rgba(250,253,255,.96),rgba(250,253,255,.59) 67%,rgba(250,253,255,.08)),url('https://mobile-ekspert.net/wp-content/uploads/2024/11/tvrtka_header.jpg'),url("../images/hero/hero-lines.svg")}
+.page-hero.page-hero-original.page-hero-contact:before{background-image:linear-gradient(90deg,rgba(250,253,255,.96),rgba(250,253,255,.58) 68%,rgba(250,253,255,.09)),url('https://mobile-ekspert.net/wp-content/uploads/2024/11/kontakt_header.jpg'),url("../images/hero/hero-lines.svg")}
 .page-hero.page-hero-original h1{color:#102f46;text-shadow:0 1px 18px rgba(255,255,255,.3)}
 .page-hero.page-hero-original p:not(.eyebrow){color:#35576d}
 .page-hero.page-hero-original .eyebrow{color:#13759e}
@@ -66,7 +66,7 @@
  .hero-home.hero-original .hero-content{padding:84px 0 111px;max-width:100%}
  .hero-home.hero-original .hero-visual{background-image:
    linear-gradient(90deg,rgba(247,252,254,.97),rgba(247,252,254,.85) 65%,rgba(247,252,254,.72)),
-   url('https://mobile-ekspert.net/wp-content/uploads/2024/11/kontakt_header.jpg');background-position:68% center}
+   url('https://mobile-ekspert.net/wp-content/uploads/2024/11/kontakt_header.jpg'),url("../images/hero/hero-lines.svg");background-position:68% center}
  .hero-home.hero-original h1{font-size:clamp(41px,10vw,62px)}
  .page-hero.page-hero-original{min-height:290px}
  .page-hero.page-hero-original:before{background-position:64% center}

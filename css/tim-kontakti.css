@@ -96,3 +96,21 @@
  .team-overview-section{padding-top:65px}
 }
 @media(prefers-reduced-motion:reduce){.staff-card{transition:none}.staff-card:hover{transform:none}}
+
+
+/* Mobile contact usability: readable cards and touch targets. */
+@media(max-width:680px){
+ .staff-card{gap:2px}
+ .staff-card-head{align-items:flex-start}
+ .staff-channels{padding-top:15px;gap:8px}
+ .staff-channels a{padding:4px 0;min-height:36px}
+ .directory-nav a{min-height:40px;display:inline-flex;align-items:center}
+ .team-preview-info a{display:inline-flex;min-height:38px;align-items:center}
+}
+@media(max-width:380px){
+ .staff-card{padding:18px 16px}
+ .staff-avatar{flex-basis:42px;width:42px;height:42px}
+ .staff-title h4{font-size:17px}
+ .contact-bottom-grid{gap:24px}
+ .staff-channels a{font-size:12.5px}
+}

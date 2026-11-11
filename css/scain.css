@@ -171,3 +171,22 @@
 .scain-faq-items details a{color:#086ea0;text-decoration:underline}
 @media(max-width:900px){.scain-faq-layout{grid-template-columns:1fr}.scain-audiences-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:650px){.scain-audiences-grid{grid-template-columns:1fr}}
+
+
+/* Small-screen polish: SCAIN graphic remains within viewport and CTAs are easy to tap. */
+@media(max-width:680px){
+ .scain-feature__actions{gap:12px}
+ .scain-feature__actions .button{width:100%;min-height:46px;text-align:center}
+ .scain-feature__actions .scain-inline-link{align-self:center}
+ .scain-page-hero__actions .button{width:100%;min-height:46px;text-align:center;white-space:normal}
+ .scain-preview--graphic{max-width:100%}
+ .scain-feature__inner,.scain-page-hero__layout{min-width:0}
+ .scain-feature__art,.scain-page-hero__art{min-width:0;overflow:hidden}
+ .scain-services-panel .button{width:100%;justify-content:center;min-height:46px}
+ .scain-services-panel .scain-inline-link{display:inline-flex;margin-top:16px}
+}
+@media(max-width:380px){
+ .scain-page-hero h1{font-size:clamp(33px,9.1vw,39px)}
+ .scain-feature h2{font-size:clamp(31px,9vw,38px)}
+ .scain-page-hero__lead{font-size:16px}
+}

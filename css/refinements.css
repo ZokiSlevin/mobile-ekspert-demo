@@ -344,3 +344,259 @@ body{font-family:Inter,"Segoe UI",Arial,sans-serif;letter-spacing:-.008em;-webki
   .site-header, .site-header .header-inner, .site-header .brand img,
   .site-header .main-nav .nav-cta { transition: none !important; }
 }
+
+
+/* ===============================================================
+   Global appearance switch + back-to-top (2026-11-10)
+   The initial light design is unchanged. All dark rules are scoped.
+   =============================================================== */
+.theme-toggle {
+  display:grid; place-items:center; flex:0 0 42px;
+  width:42px; height:42px; padding:0; border:1px solid #cfe1ed;
+  background:rgba(236,247,253,.96); color:#0b597f;
+  border-radius:12px; cursor:pointer;
+  box-shadow:0 3px 12px rgba(3,44,72,.06);
+  transition:background-color .24s, border-color .24s, color .24s, transform .24s;
+  order:2; margin-left:12px;
+}
+.theme-toggle:hover {transform:translateY(-1px);background:#dff2fc;border-color:#8ebfd7}
+.theme-toggle svg{width:21px;height:21px;pointer-events:none}
+.theme-toggle .theme-toggle__sun{display:none}
+html[data-theme="dark"] .theme-toggle__sun{display:block}
+html[data-theme="dark"] .theme-toggle__moon{display:none}
+.theme-toggle:focus-visible,.back-to-top:focus-visible{outline:3px solid #52c9ec;outline-offset:4px}
+.site-header .main-nav {order:1;margin-left:auto}
+.site-header .menu-toggle {order:3;flex-shrink:0}
+@media (max-width:980px) {
+  .site-header .main-nav {margin-left:0}
+  .theme-toggle {margin-left:auto;margin-right:7px;flex-basis:40px;width:40px;height:40px}
+}
+@media (max-width:380px) {
+  .theme-toggle {margin-right:3px;flex-basis:38px;width:38px;height:38px}
+}
+.back-to-top {
+  position:fixed;right:clamp(15px,3vw,35px);bottom:clamp(17px,3vw,35px);
+  z-index:950;display:grid;place-items:center;
+  width:51px;height:51px;border:1px solid rgba(255,255,255,.3);
+  border-radius:15px;background:#086caa;color:#fff;
+  box-shadow:0 12px 30px rgba(5,54,85,.27);cursor:pointer;
+  opacity:0;visibility:hidden;pointer-events:none;transform:translateY(15px) scale(.94);
+  transition:opacity .25s ease,transform .25s ease,visibility .25s,background-color .2s;
+}
+.back-to-top svg{width:24px;height:24px}
+.back-to-top.is-visible{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0) scale(1)}
+.back-to-top:hover{background:#075581;transform:translateY(-3px)}
+@media(max-width:680px){.back-to-top{width:46px;height:46px;right:16px;bottom:18px;border-radius:13px}}
+@media(prefers-reduced-motion:reduce){.back-to-top,.theme-toggle{transition:none}}
+
+/* Shared palette for all pages. Dark elements that already have a dark
+   background (SCAIN hero, video, footer) retain their own light typography. */
+html[data-theme="dark"] {
+  color-scheme:dark;
+  --ink:#eaf5ff;--muted:#b2c6d5;--line:#36526a;
+  --soft:#132d42;--blue:#77d4ff;
+}
+html[data-theme="dark"] body{background:#081b2b;color:#e4f2fc}
+html[data-theme="dark"] .site-header{
+  background:rgba(8,28,45,.96);border-bottom-color:rgba(106,165,193,.3);
+  box-shadow:0 4px 22px rgba(0,0,0,.13);
+}
+html[data-theme="dark"] .site-header.scrolled{
+  background:rgba(7,26,42,.78);border-bottom-color:rgba(110,171,203,.36);
+  box-shadow:0 9px 33px rgba(0,0,0,.29);
+}
+/* The authentic me.png has dark lettering; use a light logo plate. */
+html[data-theme="dark"] .site-header .brand{
+  border-radius:10px;background:rgba(255,255,255,.98);
+  padding:4px 9px;margin-left:-9px;
+}
+html[data-theme="dark"] .site-header .main-nav{color:#e7f5ff}
+html[data-theme="dark"] .site-header .main-nav>a:not(.button),
+html[data-theme="dark"] .site-header .main-nav .dropdown-toggle{color:#e6f4ff}
+html[data-theme="dark"] .site-header .main-nav .nav-scain{color:#78daf0}
+html[data-theme="dark"] .site-header .main-nav .nav-scain.active{color:#8ceaff}
+html[data-theme="dark"] .site-header .main-nav>a:not(.button):hover,
+html[data-theme="dark"] .site-header .main-nav .dropdown-toggle:hover{color:#88dcff}
+html[data-theme="dark"] .menu-toggle span{background:#e6f4ff}
+html[data-theme="dark"] .theme-toggle{background:#14384f;color:#a0e6ff;border-color:#477089;box-shadow:none}
+html[data-theme="dark"] .theme-toggle:hover{background:#1c4861;border-color:#82c7e8}
+html[data-theme="dark"] .site-header .dropdown-menu,
+html[data-theme="dark"] .site-header .main-nav.open{
+  background:#102a40;color:#e6f4ff;border-color:#3f5d75;
+  box-shadow:0 20px 34px rgba(0,0,0,.26)
+}
+html[data-theme="dark"] .site-header .dropdown-menu a{color:#e3f1fc}
+html[data-theme="dark"] .site-header .dropdown-menu a:hover{background:#1c4056;color:#9ce7ff}
+html[data-theme="dark"] .site-header .dropdown-overview{color:#9adffd;border-bottom-color:#3b5872}
+html[data-theme="dark"] .site-header .nav-cta{background:#0c79b5;color:white}
+html[data-theme="dark"] .back-to-top{background:#54c7eb;color:#062033;border-color:#a0eeff;box-shadow:0 12px 35px rgba(0,0,0,.32)}
+html[data-theme="dark"] .back-to-top:hover{background:#8ce2fb}
+html[data-theme="dark"] .skip-link{background:#173b54;color:#f0faff}
+
+/* Page surfaces and light-on-dark typography. */
+html[data-theme="dark"] .section-muted,
+html[data-theme="dark"] .scain-process,
+html[data-theme="dark"] .scain-services-feature,
+html[data-theme="dark"] .scain-company-feature,
+html[data-theme="dark"] .contact-bottom-section{background:#0b2234}
+html[data-theme="dark"] .scain-feature,
+html[data-theme="dark"] .contact-directory-section{background:linear-gradient(140deg,#0c293e,#081e2e)}
+html[data-theme="dark"] .scain-feature:before{border-color:#284b61}
+html[data-theme="dark"] .scain-partnership{background:#081b2b}
+html[data-theme="dark"] .section:not(.section-dark):not(.cta-section):not(.scain-feature):not(.scain-process):not(.contact-directory-section):not(.contact-bottom-section):not(.scain-services-feature):not(.scain-company-feature){background-color:#081b2b}
+html[data-theme="dark"] :is(.section-heading h2,.section-heading h3,.section-heading>p,
+  .split h2,.prose,.prose h2,.prose h3,.contact-form h2,.contact-box h3,.contact-location-panel h2,
+  .directory-intro h2,.staff-group-heading h3,.team-preview-heading h3,.scain-feature h2,
+  .scain-faq-layout h2,.scain-process h2,.scain-partnership h2,.scain-company-feature h2,
+  .scain-services-panel h2,.news-links-section h2,.news-feature-story h2,.audatex-official-layout h2,
+  .scain-wordmark,.news-list-card h2,.scain-capability h3,.scain-process__grid h3,
+  .staff-title h4,.team-preview-info h4,.forensics-intent-card h3,.scain-audiences-grid article h3,
+  .strengths strong,.service-card h3,.news-card h3,.quality-card h3){color:#f0f8ff}
+html[data-theme="dark"] .section-dark :is(h1,h2,h3,h4){color:#f4faff}
+html[data-theme="dark"] :is(.prose p,.news-card p,.news-list-card p,.section-heading>p,
+  .service-card p,.strengths small,.quality-card p:not(.eyebrow),.quality-card small,
+  .scain-feature__copy>p:not(.eyebrow):not(.scain-wordmark),
+  .scain-partnership p:not(.eyebrow),.scain-services-panel p:not(.eyebrow),
+  .scain-process__grid p,.scain-feature__partner,.forensics-intent-card p,
+  .scain-audiences-grid article p,.scain-faq-layout>div:first-child>p:not(.eyebrow),
+  .contact-location-panel>p:not(.eyebrow),.directory-intro p:not(.eyebrow),
+  .team-preview-info p,.team-note-bottom,.staff-title p,.staff-group-heading p,
+  .scain-capability p,.news-feature-story p:not(.eyebrow),.news-links-section p:not(.eyebrow),
+  .audatex-official-layout p:not(.eyebrow),.form-help,.form-alternative){color:#b7cbd9}
+html[data-theme="dark"] :is(.team-note,.archive-note,.data-list span,.filter-count,.form-status){color:#b4cbd9}
+html[data-theme="dark"] :is(.eyebrow,.scain-feature__overline,.scain-capability__num,
+  .service-category,.team-preview-heading span,.staff-group-number){color:#76dfff}
+html[data-theme="dark"] :is(.text-link,.scain-inline-link,.footer-audatex-official,
+  .team-note a,.form-alternative a,.contact-box>a:not(.button),
+  .related-scain-hint a,.team-preview-info a,.contact-location-panel .location-contact-links a,
+  .staff-channels a,.contact-cards a,.scain-feature__tags a){color:#90ddff}
+
+/* Cards, borders, pills and interactive elements. */
+html[data-theme="dark"] :is(.strengths-grid,.stats-grid,.service-card,.news-card,.news-list-card,
+  .scain-capability,.scain-faq-items details,.scain-services-panel,.service-faq details,
+  .contact-box,.contact-form,.quality-card,.staff-card:not(.staff-card--featured),
+  .team-preview-card,.team-grid article,.contact-cards article,.related-links a,
+  .forensics-intent-card,.scain-audiences-grid article){
+    background:#102b40;color:#e9f5ff;border-color:#35546b;
+    box-shadow:0 8px 29px rgba(0,0,0,.16)
+}
+html[data-theme="dark"] .stats-grid div,html[data-theme="dark"] .strengths-grid>div+div{border-color:#35546b}
+html[data-theme="dark"] :is(.filter-chip,.directory-nav a,.directory-count,
+  .scain-feature__tags span,.contact-hero-link,.staff-dept,
+  .staff-avatar,.team-preview-avatar,.service-icon,.strength-mark){
+    background:#193950;color:#a4e4ff;border-color:#426984
+}
+html[data-theme="dark"] .filter-chip.is-active,
+html[data-theme="dark"] .filter-chip[aria-pressed="true"]{background:#087bb3;color:#fff;border-color:#2bbde8}
+html[data-theme="dark"] .directory-nav{border-color:#355269}
+html[data-theme="dark"] .directory-nav a:hover{background:#24506a;color:#fff;border-color:#6ebee1}
+html[data-theme="dark"] .staff-group,html[data-theme="dark"] .team-preview-group{border-color:#35546b}
+html[data-theme="dark"] .staff-title p,html[data-theme="dark"] .team-preview-info p{color:#b8cddc}
+html[data-theme="dark"] .staff-channel-label{color:#98b7c9}
+html[data-theme="dark"] .staff-dept{color:#9adcf5}
+html[data-theme="dark"] :is(.staff-group-heading h3,.staff-title h4,.team-preview-heading h3,.team-preview-info h4){color:#edf7ff}
+html[data-theme="dark"] .staff-card--featured :is(h4,p,a){color:#f2fbff}
+html[data-theme="dark"] .service-faq summary,
+html[data-theme="dark"] .scain-faq-items summary{color:#e9f8ff}
+html[data-theme="dark"] .scain-process__grid article{border-color:#386079}
+html[data-theme="dark"] :is(.scain-process__note,.scain-form-note,
+  .archive-note,.related-scain-hint,.legal>p:first-child){
+    background:#163b50;color:#d4eaf5;border-color:#44acd6;
+}
+html[data-theme="dark"] :is(.scain-services-panel__brand,.scain-preview,
+  .technology-showcase,.site-footer,.section-dark){color:#f0f9ff}
+html[data-theme="dark"] .quality-card{background:linear-gradient(125deg,#112e42,#132f43)}
+html[data-theme="dark"] .news-feature-aside{border:1px solid #335772}
+html[data-theme="dark"] .news-feature-aside p{color:#bdd9e9}
+html[data-theme="dark"] .button-outline-dark{background:#16394f!important;color:#acf0ff!important;border-color:#4f819e}
+html[data-theme="dark"] .contact-form :is(input:not([type="checkbox"]),select,textarea){
+  background:#071c2d;color:#eef8ff;border-color:#47637a;box-shadow:none;
+}
+html[data-theme="dark"] .contact-form :is(input,textarea)::placeholder{color:#93b4c7;opacity:1}
+html[data-theme="dark"] .contact-form :is(input,textarea,select):focus{
+  border-color:#6cd4f8;box-shadow:0 0 0 3px rgba(78,198,232,.22)
+}
+html[data-theme="dark"] .contact-form .consent a{color:#8bdefc}
+html[data-theme="dark"] .form-status.success{color:#73e4ac}
+html[data-theme="dark"] .form-status.error{color:#ff9e9e}
+html[data-theme="dark"] .scain-wordmark__point{color:#55d7ee}
+
+/* The original photo remains, but all hero text uses light-on-dark styling. */
+html[data-theme="dark"] .hero-home.hero-original{background:#061d30}
+html[data-theme="dark"] .hero-home.hero-original .hero-visual{
+  background-image:
+    linear-gradient(90deg,rgba(4,21,35,.96) 0%,rgba(5,26,43,.88) 43%,rgba(5,26,43,.42) 78%,rgba(5,26,43,.22) 100%),
+    url('https://mobile-ekspert.net/wp-content/uploads/2024/11/kontakt_header.jpg'),url("../images/hero/hero-lines.svg");
+}
+html[data-theme="dark"] .hero-home.hero-original h1{color:#f3faff;text-shadow:none}
+html[data-theme="dark"] .hero-home.hero-original h1 em{color:#79e0ff}
+html[data-theme="dark"] .hero-home.hero-original :is(.hero-eyebrow,.lead,.hero-proof){color:#c8e1ef}
+html[data-theme="dark"] .hero-home.hero-original .button-secondary{
+  color:#e4f6ff!important;background:rgba(7,33,52,.62)!important;border-color:#5791b0
+}
+html[data-theme="dark"] .hero-home.hero-original .button-secondary:hover{background:#183d57!important}
+html[data-theme="dark"] .hero-photo-caption{
+  background:rgba(9,35,51,.85);color:#effbff;border-color:#42647b
+}
+html[data-theme="dark"] .hero-caption-overline{color:#6ddaff}
+html[data-theme="dark"] .page-hero.page-hero-original{background:#071e2e;color:#ecf8ff}
+html[data-theme="dark"] .page-hero.page-hero-original:before{
+  background-image:linear-gradient(90deg,rgba(5,24,39,.97),rgba(6,31,49,.86) 63%,rgba(5,27,42,.56)),
+    url('https://mobile-ekspert.net/wp-content/uploads/2024/11/tvrtka_header.jpg'),url("../images/hero/hero-lines.svg");
+}
+html[data-theme="dark"] .page-hero.page-hero-original.page-hero-services:before{
+  background-image:linear-gradient(90deg,rgba(5,24,39,.97),rgba(6,31,49,.86) 63%,rgba(5,27,42,.56)),
+    url('https://mobile-ekspert.net/wp-content/uploads/2024/11/usluge_header.jpg'),url("../images/hero/hero-lines.svg");
+}
+html[data-theme="dark"] .page-hero.page-hero-original.page-hero-contact:before{
+  background-image:linear-gradient(90deg,rgba(5,24,39,.97),rgba(6,31,49,.86) 63%,rgba(5,27,42,.56)),
+    url('https://mobile-ekspert.net/wp-content/uploads/2024/11/kontakt_header.jpg'),url("../images/hero/hero-lines.svg");
+}
+html[data-theme="dark"] .page-hero.page-hero-original :is(h1,p:not(.eyebrow),.eyebrow,.breadcrumbs,.breadcrumbs a,.breadcrumbs span:last-child){
+  color:#e9f7ff;text-shadow:none
+}
+html[data-theme="dark"] .page-hero.page-hero-original .eyebrow{color:#88e0ff}
+html[data-theme="dark"] .contact-hero-link{color:#a1e6ff}
+@media(max-width:680px){
+  html[data-theme="dark"] .hero-home.hero-original .hero-visual{
+    background-image:linear-gradient(90deg,rgba(5,24,39,.98),rgba(5,24,39,.84) 80%,rgba(5,24,39,.75)),
+      url('https://mobile-ekspert.net/wp-content/uploads/2024/11/kontakt_header.jpg'),url("../images/hero/hero-lines.svg");
+  }
+}
+
+
+/* Final simple conversion block on the eight service detail pages (11/2026). */
+.service-final-cta{padding:38px 0 46px!important;background:#f6fafc!important}
+.service-final-cta__inner{display:flex;align-items:center;justify-content:space-between;gap:28px;
+  padding:28px clamp(22px,3.8vw,42px);border:1px solid #d9e9f1;border-radius:20px;background:#fff;
+  box-shadow:0 8px 26px rgba(6,54,83,.04)}
+.service-final-cta__copy{min-width:0;max-width:710px}
+.service-final-cta__copy .eyebrow{margin:0 0 7px;color:#137aa2}
+.service-final-cta h2{font-size:clamp(25px,2.9vw,35px);letter-spacing:-.04em;line-height:1.16;color:#0b2e47;margin:0 0 11px}
+.service-final-cta__copy p:not(.eyebrow){margin:0;font-size:15px;line-height:1.62;color:#506d80}
+.service-final-cta__actions{display:flex;flex-direction:column;align-items:center;gap:13px;flex:0 0 auto}
+.service-final-cta__actions .button{min-width:170px;justify-content:center;white-space:nowrap}
+.service-final-cta__email{color:#0a759d;font-size:13px;font-weight:760;text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere}
+.service-final-cta__email:hover{color:#065477}
+html[data-theme="dark"] .service-final-cta{background:#0b2234!important}
+html[data-theme="dark"] .service-final-cta__inner{background:#102b40;border-color:#35546b;box-shadow:0 8px 28px rgba(0,0,0,.17)}
+html[data-theme="dark"] .service-final-cta h2{color:#f0f8ff}
+html[data-theme="dark"] .service-final-cta__copy p:not(.eyebrow){color:#bed3df}
+html[data-theme="dark"] .service-final-cta__copy .eyebrow,html[data-theme="dark"] .service-final-cta__email{color:#8adfff}
+@media(max-width:800px){
+  .service-final-cta{padding:26px 0 35px!important}
+  .service-final-cta__inner{flex-direction:column;align-items:stretch;gap:20px;padding:26px 24px}
+  .service-final-cta__actions{flex-direction:row;flex-wrap:wrap;justify-content:flex-start;gap:15px}
+}
+@media(max-width:560px){
+  .service-final-cta__inner{padding:23px 18px;border-radius:16px}
+  .service-final-cta__copy p:not(.eyebrow){font-size:14px}
+  .service-final-cta__actions{flex-direction:column;align-items:stretch}
+  .service-final-cta__actions .button{width:100%;min-width:0}
+  .service-final-cta__email{text-align:center}
+  .service-filters .filter-chip{min-height:40px}
+  a.button,button.button{max-width:100%}
+}
+
+/* Light photographic page header: keep breadcrumb readable on pale overlays. */
+html:not([data-theme="dark"]) .page-hero.page-hero-original .breadcrumbs span:last-child{color:#254d63}
