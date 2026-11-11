@@ -5,7 +5,7 @@ header('Content-Type: application/json; charset=utf-8');
 header('X-Content-Type-Options: nosniff');
 header('Cache-Control: no-store');
 
-function reply(int $status, bool $ok, string $message): never {
+function reply(int $status, bool $ok, string $message): void {
     http_response_code($status);
     echo json_encode(['success' => $ok, 'message' => $message], JSON_UNESCAPED_UNICODE);
     exit;
@@ -61,15 +61,17 @@ if (isset($_SESSION['last_message_at']) && time() - (int)$_SESSION['last_message
 $to = 'info@mobile-ekspert.net';
 $subject = 'Novi web upit: ' . $service;
 $body = "Ime i prezime: {$name}\nE-mail: {$email}\nTelefon: {$phone}\nVrsta upita: {$service}\n\nPoruka:\n{$message}\n";
+$body = preg_replace("/\r?\n/", "\r\n", $body);
 $headers = [
     'MIME-Version: 1.0',
     'Content-Type: text/plain; charset=UTF-8',
-    'From: Mobile Ekspert web <noreply@mobile-ekspert.net>',
+    'From: Mobile Ekspert web <info@mobile-ekspert.net>',
     'Reply-To: ' . $email
 ];
 $encodedSubject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
 
 if (!mail($to, $encodedSubject, $body, implode("\r\n", $headers))) {
+    error_log('[Mobile Ekspert] Kontakt forma: PHP mail() nije prihvatio slanje.');
     reply(503, false, 'Slanje trenutačno nije dostupno. Molimo javite se na info@mobile-ekspert.net.');
 }
 $_SESSION['last_message_at'] = time();
