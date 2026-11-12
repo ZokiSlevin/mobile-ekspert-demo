@@ -166,10 +166,83 @@
     });
   }
 
+  // Clean-page navigation: keep the correct section and service without #anchor or
+  // ?usluga= in the visible address. Built on native links with no-JS fallback.
+  const sectionNavigationKey = 'me-section-navigation';
+  const normalizedPath = path => path.replace(/\/index\.html$/i, '/').replace(/\.html$/i, '').replace(/\/+$/, '') || '/';
+  const here = normalizedPath(window.location.pathname);
+  const scrollToSection = (id, smooth) => {
+    const target = document.getElementById(id);
+    if (!target) return false;
+    const headerHeight = document.getElementById('siteHeader')?.getBoundingClientRect().height || 0;
+    const top = Math.max(0, target.getBoundingClientRect().top + window.scrollY - headerHeight - 16);
+    const animate = smooth && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({top,behavior:animate ? 'smooth' : 'auto'});
+    if (id === 'main') { // Preserve keyboard skip-link usability.
+      if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex','-1');
+      target.focus({preventScroll:true});
+    }
+    return true;
+  };
+  let pendingNavigation = null;
+  try {
+    pendingNavigation = JSON.parse(sessionStorage.getItem(sectionNavigationKey) || 'null');
+    sessionStorage.removeItem(sectionNavigationKey);
+    if (!pendingNavigation || normalizedPath(pendingNavigation.path) !== here) pendingNavigation=null;
+  } catch (_) { pendingNavigation=null; }
+
+  document.addEventListener('click', event => {
+    const link = event.target.closest?.('a[href]');
+    if (!link || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || link.target === '_blank' || link.hasAttribute('download')) return;
+    const explicit = link.dataset.scrollTarget;
+    const fragment = link.getAttribute('href')?.startsWith('#') ? link.getAttribute('href').slice(1) : '';
+    const section = explicit || fragment;
+    if (!section) return;
+    let destination;
+    try { destination = new URL(link.href, window.location.href); } catch (_) { return; }
+    if (destination.origin !== window.location.origin) return;
+    const destinationPath = normalizedPath(destination.pathname);
+    if (destinationPath === here) {
+      if (!document.getElementById(section)) return;
+      event.preventDefault();
+      if (link.dataset.service) {
+        const selector = document.querySelector('select[name="service"]');
+        if (selector && [...selector.options].some(option=>option.value===link.dataset.service)) {
+          selector.value=link.dataset.service;
+          selector.dispatchEvent(new Event('change',{bubbles:true}));
+        }
+      }
+      scrollToSection(section,true);
+      return;
+    }
+    // Cross-page links work without visible hashes. A small tab-scoped hint is
+    // consumed on the destination; normal URLs remain crawlable and shareable.
+    try {
+      sessionStorage.setItem(sectionNavigationKey, JSON.stringify({path:destination.pathname,target:section,service:link.dataset.service||''}));
+      event.preventDefault();
+      window.location.assign(destination.pathname + destination.search);
+    } catch (_) {
+      // Storage blocked: preserve the native destination as a functional fallback.
+      window.location.assign(destination.pathname + destination.search + '#' + encodeURIComponent(section));
+    }
+  });
+
+  // Old shared links with #upit, #imenik, etc. still scroll correctly, but
+  // the browser bar is immediately normalized to the clean page address.
+  const legacyHash = window.location.hash ? decodeURIComponent(window.location.hash.slice(1)) : '';
+  if (legacyHash && document.getElementById(legacyHash)) {
+    window.history.replaceState(window.history.state, '', window.location.pathname + window.location.search);
+  }
+
   const form = document.querySelector('.contact-form');
   if (form) {
     const params = new URLSearchParams(window.location.search);
-    const selectedService = params.get('usluga');
+    const selectedService = pendingNavigation?.service || params.get('usluga');
+    if (params.has('usluga')) {
+      params.delete('usluga');
+      const cleanQuery = params.toString();
+      window.history.replaceState(window.history.state, '', window.location.pathname + (cleanQuery ? '?' + cleanQuery : ''));
+    }
     const serviceSelect = form.querySelector('select[name="service"]');
     if (selectedService && serviceSelect && [...serviceSelect.options].some(o => o.value === selectedService)) serviceSelect.value = selectedService;
     const scainNote = document.getElementById('scainFormNote');
@@ -210,6 +283,12 @@
         if (submit) {submit.disabled = false;submit.textContent = originalText;}
       }
     });
+  }
+  const pendingTarget = pendingNavigation?.target || legacyHash;
+  if (pendingTarget) {
+    // Do not wait for slow legacy WordPress photos; the DOM is already parsed
+    // when this deferred script runs, so the form/directory can be targeted now.
+    requestAnimationFrame(() => requestAnimationFrame(() => scrollToSection(pendingTarget, false)));
   }
 })();
 
